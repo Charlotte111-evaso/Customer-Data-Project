@@ -1,59 +1,87 @@
-# Customer Segmentation and Personalized Loyalty Campaign
+## 🧠 Customer Segmentation & Predictive Modeling (RFM Analysis)
 
-This project showcases the application of **customer segmentation** and the design of **personalized loyalty campaigns** using retail transaction data. It simulates the kind of work a data analyst might do at a retail-focused company like **Loyal Guru**.
-
----
-
-## Project Overview
-
-The goal of this project is to:
-- Analyze historical transaction data
-- Segment customers based on their purchasing behavior using **RFM (Recency, Frequency, Monetary)** analysis
-- Apply **K-Means clustering** to group customers into meaningful segments
-- Design **tailored loyalty campaigns** for each customer group
+This project demonstrates an end-to-end customer segmentation pipeline using **RFM analysis**, combining **SQL**, **Python**, and **scikit-learn**. It simulates a real-world marketing use case—identifying distinct customer segments and predicting high-value users—valuable for companies like **Loyal Guru**.
 
 ---
 
-## Dataset
+### 🔧 Tools & Technologies
 
-The dataset comes from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/online+retail) (also available on Kaggle) and contains ~540,000 retail transactions made by a UK-based online retailer from 2010 to 2011.
-
-**Main columns used:**
-- `InvoiceNo`: Unique identifier for transactions
-- `CustomerID`: Unique identifier for customers
-- `InvoiceDate`: Timestamp of purchase
-- `Quantity`: Number of items bought
-- `UnitPrice`: Price per item
-- `Country`: Customer location
+* **SQL** – Data extraction, cleaning (filtered cancellations, nulls)
+* **Python (Pandas, NumPy)** – Data wrangling & analysis
+* **Scikit-learn** – StandardScaler, KMeans, RandomForestClassifier
+* **Matplotlib / Seaborn** – Visualizations (2D/3D plots, pairplots)
 
 ---
 
-## Technologies & Libraries
+### 📊 Workflow Summary
 
-- Python (3.9+)
-- Pandas
-- NumPy
-- scikit-learn
-- Matplotlib / Seaborn
-- Jupyter Notebook
+**1. Data Cleaning & Feature Engineering**
+
+* Extracted transactional data via SQL; filtered invalid entries.
+* Calculated RFM metrics:
+
+  * **Recency** = Days since last purchase
+  * **Frequency** = Total purchase events
+  * **Monetary** = Total spend
+
+**2. RFM Table & Normalization**
+
+* Created RFM table per customer.
+* Scaled features using `StandardScaler()` for clustering.
+
+**3. Clustering with KMeans**
+
+* Identified **5 optimal clusters** using the Elbow Method & Silhouette Score.
+* Labeled customers and profiled segments based on average RFM values.
+
+**4. Data Visualization**
+
+* 2D & 3D scatterplots, bubble charts, and pairplots to explore cluster separation and behavior.
+
+**5. Predictive Modeling (Supervised)**
+
+* Trained a **Random Forest classifier** using cluster labels as targets to predict customer segment from raw RFM data.
+* Achieved **100% accuracy** on test data.
 
 ---
 
-## Methodology
+### 📌 Segment Summary (RFM Clustering Results)
 
-### 1. Data Cleaning
-- Removed missing `CustomerID`s and cancelled transactions (negative quantities)
-- Converted date columns to datetime format
+| Cluster | Recency | Frequency | Monetary (€) | Customers | Description             |
+| ------- | ------- | --------- | ------------ | --------- | ----------------------- |
+| 0       | 43.3    | 3.9       | €1,191       | 2,932     | 😊 Moderate but Stable  |
+| 1       | 246.1   | 1.9       | €491         | 1,044     | ⚠️ At-Risk/Churned      |
+| 2       | 5.8     | 92.8      | €55,470      | 20        | 💰 High-Value Loyalists |
+| 3       | 12.6    | 21.0      | €7,784       | 318       | 🔁 Loyal & Engaged      |
+| 4       | 3.0     | 64.7      | €241,137     | 3         | 🏆 Elite VIPs           |
 
-### 2. RFM Feature Engineering
-- **Recency**: Days since the last purchase
-- **Frequency**: Number of purchase events
-- **Monetary**: Total amount spent
+---
 
-### 3. Data Scaling
-- Used `StandardScaler` to normalize features before clustering
+### 💡 Strategic Recommendations
 
-### 4. Customer Segmentation
-- Applied **K-Means** clustering
-- Used the **Elbow Method** to determine the optimal number of clusters
-- Visualized results with dimensionality
+* **Cluster 4 (Elite VIPs):** White-glove treatment, concierge services, priority support.
+* **Cluster 2 (High-Value Loyalists):** Retain with exclusive offers, early access to products.
+* **Cluster 3 (Loyal & Engaged):** Reward loyalty, upsell with bundles or subscriptions.
+* **Cluster 0 (Moderate but Stable):** Build engagement via loyalty points or seasonal promos.
+* **Cluster 1 (At-Risk):** Launch reactivation campaigns (discounts, reminders, feedback loops).
+
+---
+
+### 🔍 Predictive Modeling Highlights
+
+| Metric    | Value |
+| --------- | ----- |
+| Accuracy  | 1.00  |
+| Precision | 1.00  |
+| Recall    | 1.00  |
+| F1-Score  | 1.00  |
+
+> 🌟 Perfect classification suggests RFM features hold strong predictive value for customer lifetime segments.
+
+---
+
+### 🚀 Business Value
+
+* **Customer understanding:** Clear personas for targeting, retention, and upselling.
+* **Scalable segmentation:** Automatically tag new customers via ML.
+* **Data-driven campaigns:** Personalized marketing with higher ROI.
